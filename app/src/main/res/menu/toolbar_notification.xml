@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- FIX: Changed icon to an exclamation mark and set to be invisible by default -->
+    <item
+        android:id="@+id/mnBudgetAlert"
+        android:title="Budget Alert"
+        android:icon="@drawable/ic_over_budget"
+        android:visible="false"
+        app:showAsAction="always" />
+
+</menu>

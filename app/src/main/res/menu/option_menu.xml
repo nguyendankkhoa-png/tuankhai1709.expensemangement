@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/mnUserInfo"
+        android:title="User's Info"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/mnChangePass"
+        android:title="Change Password"
+        android:icon="@drawable/ic_changepass" />
+
+    <item
+        android:id="@+id/mnLogout"
+        android:title="Log out"
+        android:icon="@drawable/ic_logout" />
+</menu>
