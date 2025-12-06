@@ -33,6 +33,27 @@ public class DAOFixedExpense {
         return result;
     }
 
+    public int updateFixedExpense(objFixedExpense fixedExpense) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("amount", fixedExpense.getAmount());
+        values.put("category", fixedExpense.getCategory());
+        values.put("note", fixedExpense.getNote());
+        values.put("dayOfMonth", fixedExpense.getDayOfMonth()); // Update day of month
+        values.put("lastAddedMonth", fixedExpense.getLastAddedMonth());
+        values.put("lastAddedYear", fixedExpense.getLastAddedYear());
+
+        int result = db.update("tbl_fixed_expense", values, "id = ?",
+                new String[]{String.valueOf(fixedExpense.getId())});
+        return result;
+    }
+
+    public int deleteFixedExpense(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int result = db.delete("tbl_fixed_expense", "id = ?",
+                new String[]{String.valueOf(id)});
+        return result;
+    }
 
     public List<objFixedExpense> getAllFixedExpenses(int idUser) {
         List<objFixedExpense> list = new ArrayList<>();
@@ -58,23 +79,4 @@ public class DAOFixedExpense {
         return list;
     }
 
-    public int updateFixedExpense(objFixedExpense fixedExpense) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("amount", fixedExpense.getAmount());
-        values.put("category", fixedExpense.getCategory());
-        values.put("note", fixedExpense.getNote());
-        values.put("dayOfMonth", fixedExpense.getDayOfMonth()); // Update day of month
-        values.put("lastAddedMonth", fixedExpense.getLastAddedMonth());
-        values.put("lastAddedYear", fixedExpense.getLastAddedYear());
-
-        int result = db.update("tbl_fixed_expense", values, "id = ?", new String[]{String.valueOf(fixedExpense.getId())});
-        return result;
-    }
-
-    public int deleteFixedExpense(int id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        int result = db.delete("tbl_fixed_expense", "id = ?", new String[]{String.valueOf(id)});
-        return result;
-    }
 }

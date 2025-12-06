@@ -5,6 +5,13 @@
 
 
     <item
+        android:id="@+id/mnUserGuide"
+        android:title="User Guide"
+        android:icon="@drawable/ic_userguide"
+        />
+
+
+    <item
         android:id="@+id/mnUserInfo"
         android:title="User's Info"
         android:icon="@drawable/ic_home"/>

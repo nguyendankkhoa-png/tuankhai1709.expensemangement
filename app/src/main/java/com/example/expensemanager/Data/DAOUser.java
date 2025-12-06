@@ -41,22 +41,6 @@ public class DAOUser {
                 new String[]{String.valueOf(obj.getId())});
     }
 
-    public void updatePassword(objUser obj) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("password", obj.getPassword());
-
-        db.update("tbl_user", values, "id = ?",
-                new String[]{String.valueOf(obj.getId())});
-    }
-
-    public void deleteUser(int id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete("tbl_user", "id = ?",
-                new String[]{String.valueOf(id)});
-        db.close();
-    }
-
 
     public objUser getUserByID(int id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -91,21 +75,18 @@ public class DAOUser {
             obj.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
         }
         cursor.close();
-        db.close();
         return obj;
     }
 
-    public boolean checkLogin(String email, String password) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT * FROM tbl_user WHERE email = ? AND password = ?";
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{email, password});
-        boolean result = cursor.moveToFirst();
-        cursor.close();
-        db.close();
-        return result;
-    }
-
     // New method for forgot password - get user by email only
+    public void updatePassword(objUser obj) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("password", obj.getPassword());
+
+        db.update("tbl_user", values, "id = ?",
+                new String[]{String.valueOf(obj.getId())});
+    }
     public objUser getUserByEmail(String email) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         objUser obj = null;
@@ -121,7 +102,6 @@ public class DAOUser {
             obj.setPassword(cursor.getString(cursor.getColumnIndexOrThrow("password")));
         }
         cursor.close();
-        db.close();
         return obj;
     }
 

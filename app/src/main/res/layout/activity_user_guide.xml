@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".UserGuideActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Guide"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Guide 1: Add Transaction -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1. Add a Transaction"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="367dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="To add a new transaction, go to the 'Expense' page and tap the plus (+) icon on the menu. After adding, you can edit or delete it by tapping the dropdown arrow on each transaction item." />
+
+        <!-- Guide 2: Add Budget -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2. Add a Budget"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="367dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="To set a budget for a category, go to the 'Budget' page and tap 'Add Budget'. A form will appear for you to enter the details. If your spending reaches 80% of the budget, a warning icon (!) will appear on the toolbar." />
+
+        <!-- Guide 3: Add Recurring Expense -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3. Add Recurring Expenses"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="366dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="To add a monthly recurring expense, go to the 'Expense' page and tap 'Add Recurring'. This expense will be automatically added each month on your specified day. Tap 'Show Recurring' to see all fixed expenses." />
+
+        <!-- Guide 4: Filter and Search -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4. Filter and Search"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="367dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="You can go to the 'Expense' or 'Income' pages to filter your transactions by category and date to easily look up information." />
+
+        <!-- Guide 5: View Reports -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5. View Reports"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="365dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="To view reports, first select whether to view by 'month' or 'year', then choose the specific month or year you wish to see." />
+
+    </LinearLayout>
+</ScrollView>

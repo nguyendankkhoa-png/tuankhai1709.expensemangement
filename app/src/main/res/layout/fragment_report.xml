@@ -46,8 +46,9 @@
 
             <RadioButton
                 android:id="@+id/rb_yearly"
-                android:layout_width="0dp"
+                android:layout_width="189dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:layout_weight="1"
                 android:text="Yearly"
                 android:textColor="@color/black"
@@ -75,8 +76,8 @@
                 android:id="@+id/spinner_year"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:background="@android:color/white"
                 android:padding="8dp"
                 android:visibility="gone" />

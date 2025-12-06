@@ -120,7 +120,8 @@ public class ExpenseFragment extends Fragment {
         });
     }
 
-    private void setupDateFilter() { if (edFilterDate != null) { edFilterDate.setOnClickListener(v -> showDatePickerDialog()); } }
+    private void setupDateFilter() { if (edFilterDate != null)
+    { edFilterDate.setOnClickListener(v -> showDatePickerDialog()); } }
     private void setupClearButton() {
         btnClearFilter.setOnClickListener(v -> {
             selectedCategory = null;
@@ -129,6 +130,21 @@ public class ExpenseFragment extends Fragment {
             spnFilterCategory.setSelection(0);
             applyFilters();
         });
+    }
+
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(),
+                (view, year, month, dayOfMonth) -> {
+                    String date = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth);
+                    edFilterDate.setText(date);
+                    selectedDate = date;
+                    applyFilters();
+                },
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
     }
 
     private void applyFilters() {
@@ -153,25 +169,6 @@ public class ExpenseFragment extends Fragment {
         }
     }
 
-
-
-
-
-    private void showDatePickerDialog() {
-        Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                getContext(),
-                (view, year, month, dayOfMonth) -> {
-                    String date = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth);
-                    edFilterDate.setText(date);
-                    selectedDate = date;
-                    applyFilters();
-                },
-                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show();
-    }
-
     private void showRecurringExpensesDialog() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_show_recurring);
@@ -183,7 +180,8 @@ public class ExpenseFragment extends Fragment {
         rvRecurring.setLayoutManager(new LinearLayoutManager(getContext()));
         List<objFixedExpense> recurringList = daoFixedExpense.getAllFixedExpenses(currentIdUser);
 
-        RecurringExpenseAdapter recurringAdapter = new RecurringExpenseAdapter(getContext(), recurringList, new RecurringExpenseAdapter.OnRecurringExpenseListener() {
+        RecurringExpenseAdapter recurringAdapter = new RecurringExpenseAdapter(getContext(), recurringList,
+                new RecurringExpenseAdapter.OnRecurringExpenseListener() {
             @Override
             public void onEdit(objFixedExpense expense) {
                 showAddRecurringExpenseDialog(expense);
@@ -207,7 +205,8 @@ public class ExpenseFragment extends Fragment {
     private void showAddRecurringExpenseDialog(@Nullable objFixedExpense existingExpense) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_add_recurring_expense);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
 
         Spinner spnCategory = dialog.findViewById(R.id.spn_recurring_category);
         TextInputEditText edAmount = dialog.findViewById(R.id.ed_recurring_amount);
@@ -216,8 +215,10 @@ public class ExpenseFragment extends Fragment {
         Button btnCancel = dialog.findViewById(R.id.btn_recurring_cancel);
         Button btnSave = dialog.findViewById(R.id.btn_recurring_save);
 
-        List<String> categories = Arrays.asList("Food & Drinks", "Gasoline & Transportation", "Entertainment", "Groceries", "Monthly utility bills");
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, categories);
+        List<String> categories = Arrays.asList("Food & Drinks", "Gasoline & Transportation",
+                "Entertainment", "Groceries", "Monthly utility bills");
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, categories);
         spnCategory.setAdapter(categoryAdapter);
 
         if (existingExpense != null) {

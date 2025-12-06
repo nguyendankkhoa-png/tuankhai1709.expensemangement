@@ -44,12 +44,14 @@ public class DAOExpense {
         values.put("category", expense.getCategory());
         values.put("type", expense.getType());
 
-        return db.update("tbl_transaction", values, "id = ?", new String[]{String.valueOf(expense.getId())});
+        return db.update("tbl_transaction", values, "id = ?",
+                new String[]{String.valueOf(expense.getId())});
     }
 
     public int deleteExpense(int expenseId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        return db.delete("tbl_transaction", "id = ?", new String[]{String.valueOf(expenseId)});
+        return db.delete("tbl_transaction", "id = ?",
+                new String[]{String.valueOf(expenseId)});
     }
 
     public List<objExpense> getExpensesByType(String type) {

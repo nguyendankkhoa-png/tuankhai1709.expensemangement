@@ -37,10 +37,7 @@ public class HomeFragment extends Fragment {
     TransactionAdapter adapter;
     DAOExpense daoExpense;
     List<objExpense> recentTransactionsList = new ArrayList<>();
-    TextView tvRecentTransactions;
-    TextView tvTotalIncome;
-    TextView tvTotalExpense;
-
+    TextView tvRecentTransactions, tvTotalIncome, tvTotalExpense, tvAvailableBalance;
     private PieChart pieChart;
     private int currentUserId;
 
@@ -78,6 +75,7 @@ public class HomeFragment extends Fragment {
         tvRecentTransactions = view.findViewById(R.id.tv_recent_transactions);
         tvTotalIncome = view.findViewById(R.id.tv_total_income);
         tvTotalExpense = view.findViewById(R.id.tv_total_expense);
+        tvAvailableBalance = view.findViewById(R.id.tv_available_balance);
         pieChart = view.findViewById(R.id.pie_chart);
 
         if (getContext() != null) {
@@ -121,6 +119,8 @@ public class HomeFragment extends Fragment {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.0");
         tvTotalIncome.setText("$" + decimalFormat.format(totalIncome));
         tvTotalExpense.setText("$" + decimalFormat.format(totalExpense));
+        double availableBalance = totalIncome - totalExpense;
+        tvAvailableBalance.setText("$" + decimalFormat.format(availableBalance));
 
         updateChartData(totalIncome, totalExpense);
 

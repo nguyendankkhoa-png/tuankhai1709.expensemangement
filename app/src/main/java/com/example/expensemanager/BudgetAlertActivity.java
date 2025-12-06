@@ -37,7 +37,7 @@ public class BudgetAlertActivity extends AppCompatActivity {
 
     private void loadAlerts() {
         DAOBudget daoBudget = new DAOBudget(this);
-        List<Map<String, Object>> alerts = daoBudget.getBudgetsExceeding90Percent(idUser, this);
+        List<Map<String, Object>> alerts = daoBudget.getBudgetsExceeding80Percent(idUser, this);
 
         if (alerts == null || alerts.isEmpty()) {
             lvAlerts.setVisibility(ListView.GONE);

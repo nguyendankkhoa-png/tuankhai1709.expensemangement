@@ -34,22 +34,31 @@ public class DAOBudget {
         values.put("endDate", budget.getEndDate());
 
         if (budget.getId() > 0) {
-            return db.update("tbl_budget", values, "id = ?", new String[]{String.valueOf(budget.getId())});
+            return db.update("tbl_budget", values, "id = ?",
+                    new String[]{String.valueOf(budget.getId())});
         }
 
         Cursor cursor = db.rawQuery(
-                "SELECT id FROM tbl_budget WHERE idUser = ? AND category = ?",
+                "SELECT id FROM tbl_budget " +
+                        "WHERE idUser = ? AND category = ?",
                 new String[]{String.valueOf(budget.getIdUser()), budget.getCategory()}
         );
 
         if (cursor.moveToFirst()) {
             int existId = cursor.getInt(0);
             cursor.close();
-            return db.update("tbl_budget", values, "id = ?", new String[]{String.valueOf(existId)});
+            return db.update("tbl_budget", values, "id = ?",
+                    new String[]{String.valueOf(existId)});
         }
         cursor.close();
 
         return (int) db.insert("tbl_budget", null, values);
+    }
+
+    public int deleteBudget(int budgetId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return db.delete("tbl_budget", "id = ?",
+                new String[]{String.valueOf(budgetId)});
     }
 
     public List<objBudget> getAllBudgetsForUser(int idUser) {
@@ -57,7 +66,7 @@ public class DAOBudget {
         List<objBudget> list = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM tbl_budget WHERE idUser = ? ORDER BY category ASC",
+                "SELECT * FROM tbl_budget WHERE idUser = ? ORDER BY category",
                 new String[]{String.valueOf(idUser)}
         );
 
@@ -78,40 +87,14 @@ public class DAOBudget {
         return list;
     }
 
-    public objBudget getBudgetByCategory(int idUser, String category) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        objBudget b = null;
-
-        Cursor cursor = db.rawQuery(
-                "SELECT * FROM tbl_budget WHERE idUser = ? AND category = ?",
-                new String[]{String.valueOf(idUser), category}
-        );
-
-        if (cursor.moveToFirst()) {
-            b = new objBudget();
-            b.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
-            b.setIdUser(idUser);
-            b.setCategory(category);
-            b.setBudgetAmount(cursor.getDouble(cursor.getColumnIndexOrThrow("budgetAmount")));
-            b.setStartDate(cursor.getString(cursor.getColumnIndexOrThrow("startDate")));
-            b.setEndDate(cursor.getString(cursor.getColumnIndexOrThrow("endDate")));
-        }
-
-        cursor.close();
-        return b;
-    }
-
-    public int deleteBudget(int budgetId) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        return db.delete("tbl_budget", "id = ?", new String[]{String.valueOf(budgetId)});
-    }
-
-    public List<Map<String, Object>> getBudgetsExceeding90Percent(int idUser, Context context) {
+    public List<Map<String, Object>> getBudgetsExceeding80Percent(int idUser, Context context) {
         List<Map<String, Object>> alertList = new ArrayList<>();
         List<objBudget> allBudgets = getAllBudgetsForUser(idUser);
 
         for (objBudget budget : allBudgets) {
-            double spentAmount = calculateSpentAmount(idUser, budget.getCategory(), budget.getStartDate(), budget.getEndDate(), daoExpense);
+            double spentAmount = calculateSpentAmount(idUser, budget.getCategory(),
+                    budget.getStartDate(), budget.getEndDate(), daoExpense);
+
             double budgetAmount = budget.getBudgetAmount();
             int percentage = (budgetAmount > 0) ? (int) ((spentAmount / budgetAmount) * 100) : 0;
 
@@ -128,17 +111,23 @@ public class DAOBudget {
         return alertList;
     }
 
-    private double calculateSpentAmount(int idUser, String category, String startDate, String endDate, DAOExpense dao) {
+    private double calculateSpentAmount(int idUser,
+                                        String category,
+                                        String startDate,
+                                        String endDate,
+                                        DAOExpense dao) {
         SQLiteDatabase db = dao.dbHelper.getReadableDatabase();
         double result = 0;
         String query;
         String[] args;
 
         if (category.equalsIgnoreCase("All")) {
-            query = "SELECT SUM(amount) FROM tbl_transaction WHERE idUser = ? AND type = 'Expense' AND date BETWEEN ? AND ?";
+            query = "SELECT SUM(amount) FROM tbl_transaction " +
+                    "WHERE idUser = ? AND type = 'Expense' AND date BETWEEN ? AND ?";
             args = new String[]{String.valueOf(idUser), startDate, endDate};
         } else {
-            query = "SELECT SUM(amount) FROM tbl_transaction WHERE idUser = ? AND type = 'Expense' AND category = ? AND date BETWEEN ? AND ?";
+            query = "SELECT SUM(amount) FROM tbl_transaction " +
+                    "WHERE idUser = ? AND type = 'Expense' AND category = ? AND date BETWEEN ? AND ?";
             args = new String[]{String.valueOf(idUser), category, startDate, endDate};
         }
 

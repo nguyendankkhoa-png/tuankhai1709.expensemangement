@@ -33,14 +33,12 @@ import java.util.Map;
 
 public class ReportFragment extends Fragment {
 
-    private Spinner spinnerMonth;
     private Button btnViewReport;
-    private Spinner spinnerYear;
+    private Spinner spinnerYear, spinnerMonth;
     private RadioGroup rgReportType;
     private RecyclerView recyclerViewExpense, recyclerViewIncome;
-    private TextView tvEmptyExpense, tvEmptyIncome;
-    private TextView tvTotalIncome, tvTotalExpense, tvTotalBalance;
-    private TextView tvExpenseTotal, tvIncomeTotal, tvFinalTotal;
+    private TextView tvEmptyExpense, tvEmptyIncome, tvTotalIncome,
+            tvTotalExpense, tvTotalBalance, tvExpenseTotal, tvIncomeTotal, tvFinalTotal;
     private ReportViewModel viewModel;
     private DAOExpense daoExpense;
     private CategoryReportAdapter expenseAdapter, incomeAdapter;
@@ -132,9 +130,6 @@ public class ReportFragment extends Fragment {
         return view;
     }
 
-    /**
-     * Load all available months to spinner
-     */
     private void loadMonthsToSpinner() {
         List<String> monthsList = daoExpense.getAvailableMonths(currentIdUser);
 
@@ -158,9 +153,6 @@ public class ReportFragment extends Fragment {
         spinnerMonth.setAdapter(spinnerAdapter);
     }
 
-    /**
-     * Load all available years to spinner
-     */
     private void loadYearsToSpinner() {
         List<String> yearsList = daoExpense.getAvailableYears(currentIdUser);
 
@@ -183,13 +175,9 @@ public class ReportFragment extends Fragment {
         spinnerYear.setAdapter(spinnerAdapter);
     }
 
-    /**
-     * Load report for selected month or year
-     */
     private void loadReportForSelectedMonth() {
         List<objExpense> allTransactions = new ArrayList<>();
 
-        // Check which report type is selected
         if (rgReportType.getCheckedRadioButtonId() == R.id.rb_monthly) {
             String selectedMonth = (String) spinnerMonth.getSelectedItem();
 
@@ -200,13 +188,9 @@ public class ReportFragment extends Fragment {
                 recyclerViewIncome.setVisibility(View.GONE);
                 return;
             }
-
-            // Parse month and year from "MM/YYYY" format
             String[] parts = selectedMonth.split("/");
             int month = Integer.parseInt(parts[0]);
             int year = Integer.parseInt(parts[1]);
-
-            // Get all transactions for the month
             allTransactions = daoExpense.getExpensesByMonthYear(currentIdUser, month, year);
         } else if (rgReportType.getCheckedRadioButtonId() == R.id.rb_yearly) {
             String selectedYear = (String) spinnerYear.getSelectedItem();
@@ -218,10 +202,7 @@ public class ReportFragment extends Fragment {
                 recyclerViewIncome.setVisibility(View.GONE);
                 return;
             }
-
             int year = Integer.parseInt(selectedYear);
-
-            // Get all transactions for the year
             allTransactions = daoExpense.getExpensesByYear(currentIdUser, year);
         }
 
@@ -322,9 +303,6 @@ public class ReportFragment extends Fragment {
         viewModel.setTotalExpense(totalExpense);
     }
 
-    public void setUserId(int userId) {
-        this.currentIdUser = userId;
-    }
     public void refreshList() {
         loadMonthsToSpinner();
         loadReportForSelectedMonth();

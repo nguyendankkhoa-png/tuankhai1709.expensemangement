@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity
 
         try {
             DAOBudget daoBudget = new DAOBudget(this);
-            List<Map<String, Object>> alerts = daoBudget.getBudgetsExceeding90Percent(currentIdUser, this);
+            List<Map<String, Object>> alerts = daoBudget.getBudgetsExceeding80Percent(currentIdUser, this);
 
             boolean hasAlerts = (alerts != null && !alerts.isEmpty());
 
@@ -234,6 +234,8 @@ public class MainActivity extends AppCompatActivity
         }
         if (id == R.id.mnUserInfo) {
             startActivity(new Intent(this, UserInfoActivity.class).putExtra("idUser", currentIdUser));
+        } else if (id == R.id.mnUserGuide) {
+            startActivity(new Intent(this, UserGuideActivity.class).putExtra("idUser", currentIdUser));
         } else if (id == R.id.mnChangePass) {
             startActivity(new Intent(this, ChangePasswordActivity.class).putExtra("idUser", currentIdUser));
         } else if (id == R.id.mnLogout) {
@@ -248,7 +250,7 @@ public class MainActivity extends AppCompatActivity
 
     private void showBudgetAlertDialog() {
         DAOBudget daoBudget = new DAOBudget(this);
-        List<Map<String, Object>> alerts = daoBudget.getBudgetsExceeding90Percent(currentIdUser, this);
+        List<Map<String, Object>> alerts = daoBudget.getBudgetsExceeding80Percent(currentIdUser, this);
 
         if (alerts == null || alerts.isEmpty()) {
             FunctionRecycle.showAlert(this, "BUDGET STATUS", "No budget alerts at this time.");

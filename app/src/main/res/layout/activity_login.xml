@@ -30,13 +30,14 @@
                 <!-- Title -->
                 <TextView
                     android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:paddingBottom="20dp"
-                    android:text="Welcome To CherishMoney!"
+                    android:text="Welcome To CampusExpense Manager!"
                     android:textColor="#000"
-                    android:textSize="22sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -47,6 +48,14 @@
                     android:paddingBottom="60dp"
                     app:srcCompat="@drawable/avt_login"
                     tools:srcCompat="@drawable/avt_login" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Take care your money, shape your future."
+                    android:textStyle="italic"
+                    android:textSize="17dp"/>
 
                 <!-- Username -->
                 <com.google.android.material.textfield.TextInputLayout

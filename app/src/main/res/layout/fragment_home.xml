@@ -49,6 +49,7 @@
             android:elevation="2dp">
 
             <!-- Income Overview -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +78,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,6 +95,30 @@
                     android:gravity="right"
                     android:text="0.00"
                     android:textColor="@color/expense_color"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Available balance this month:"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_available_balance"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="0.00"
+                    android:textColor="@color/income_color"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
