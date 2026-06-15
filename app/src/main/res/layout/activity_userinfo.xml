@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Birth Day:" />
+                    android:text="Birthday:" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                         android:id="@+id/edUserbirthday"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Birth Year" />
+                        android:hint="Birthday" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button

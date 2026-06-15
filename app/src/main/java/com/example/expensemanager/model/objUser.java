@@ -7,17 +7,19 @@ public class objUser {
     private int phone;
     private String email;
     private String password;
+    private String pin;
 
     public objUser() {
     }
 
-    public objUser(int id, String name, int age, int phone, String email, String password) {
+    public objUser(int id, String name, int age, int phone, String email, String password, String pin) { // Thêm pin vào constructor
         this.id = id;
         this.name = name;
         this.age = age;
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.pin = pin;
     }
 
     public int getId() {
@@ -53,4 +55,11 @@ public class objUser {
         this.password = password;
     }
 
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
 }

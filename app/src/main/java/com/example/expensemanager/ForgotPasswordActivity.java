@@ -14,7 +14,7 @@ import com.example.expensemanager.model.objUser;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    EditText edEmail, edNewPassword, edConfirmPassword;
+    EditText edEmail, edPin, edNewPassword, edConfirmPassword;
     Button btnReset, btnBack;
 
     @Override
@@ -24,6 +24,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         edEmail = findViewById(R.id.edEmail);
+        edPin = findViewById(R.id.edPin); // Add this line
         edNewPassword = findViewById(R.id.edNewPassword);
         edConfirmPassword = findViewById(R.id.edConfirmPassword);
         btnReset = findViewById(R.id.btnReset);
@@ -35,12 +36,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         btnReset.setOnClickListener(v -> {
             String email = edEmail.getText().toString().trim();
+            String pin = edPin.getText().toString().trim(); // Get the PIN Code
             String newPassword = edNewPassword.getText().toString().trim();
             String confirmPassword = edConfirmPassword.getText().toString().trim();
 
             // Validation
-            if (email.isEmpty()) {
-                FunctionRecycle.showAlert(this, "Error", "Please enter your email");
+            if (email.isEmpty() || pin.isEmpty()) { // Check the pin and email fields
+                FunctionRecycle.showAlert(this, "Error", "Please enter your email and your PIN Code.");
                 return;
             }
 
@@ -59,12 +61,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 return;
             }
 
-            // Check if email exists in database
+            // Check if email and PIN exist in database
             DAOUser daoUser = new DAOUser(this);
-            objUser user = daoUser.getUserByEmail(email);
+            objUser user = daoUser.getUserByEmailAndPin(email, pin); // Check pin for using to reset password
+
 
             if (user == null) {
-                FunctionRecycle.showAlert(this, "Error", "Email not found in the system");
+                FunctionRecycle.showAlert(this, "Error", "Invalid email or PIN"); // Updated error message
                 return;
             }
 
@@ -83,4 +86,3 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
     }
 }
-

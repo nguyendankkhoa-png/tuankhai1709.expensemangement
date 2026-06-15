@@ -113,6 +113,7 @@ public class HomeFragment extends Fragment {
         int currentMonth = calendar.get(Calendar.MONTH) + 1;
         int currentYear = calendar.get(Calendar.YEAR);
 
+        // Get total for DAOExpense
         double totalIncome = daoExpense.getTotalIncomeByMonth(currentUserId, currentMonth, currentYear);
         double totalExpense = daoExpense.getTotalExpenseByMonth(currentUserId, currentMonth, currentYear);
 
@@ -121,6 +122,11 @@ public class HomeFragment extends Fragment {
         tvTotalExpense.setText("$" + decimalFormat.format(totalExpense));
         double availableBalance = totalIncome - totalExpense;
         tvAvailableBalance.setText("$" + decimalFormat.format(availableBalance));
+        if (availableBalance < 0) {
+            tvAvailableBalance.setTextColor(Color.parseColor("#F44336")); // Red
+        } else {
+            tvAvailableBalance.setTextColor(Color.parseColor("#4CAF50")); // Green
+        }
 
         updateChartData(totalIncome, totalExpense);
 

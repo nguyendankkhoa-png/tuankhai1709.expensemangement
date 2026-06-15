@@ -59,6 +59,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
         objBudget budget = budgetList.get(position);
         if (budget == null) return;
 
+        // Get percent to load on the process bar
         double spentAmount = calculateSpentAmount(budget.getIdUser(), budget.getCategory(), budget.getStartDate(), budget.getEndDate());
         double budgetAmount = budget.getBudgetAmount();
         double remainingAmount = budgetAmount - spentAmount;

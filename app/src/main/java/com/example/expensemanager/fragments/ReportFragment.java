@@ -90,7 +90,6 @@ public class ReportFragment extends Fragment {
         daoExpense = new DAOExpense(requireContext());
         viewModel = new ViewModelProvider(requireActivity()).get(ReportViewModel.class);
 
-        // Get current user ID từ Bundle hoặc mặc định
         if (currentIdUser == 1 && getArguments() != null && getArguments().containsKey(ARG_USER_ID)) {
             currentIdUser = getArguments().getInt(ARG_USER_ID, 1);
         }
@@ -105,7 +104,7 @@ public class ReportFragment extends Fragment {
         incomeAdapter = new CategoryReportAdapter(new ArrayList<>());
         recyclerViewIncome.setAdapter(incomeAdapter);
 
-        // Set listener for RadioGroup
+        // RadioGroup report
         rgReportType.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.rb_monthly) {
                 spinnerMonth.setVisibility(View.VISIBLE);
@@ -121,7 +120,6 @@ public class ReportFragment extends Fragment {
         // Load available months
         loadMonthsToSpinner();
 
-        // Set click listener for View Report button
         btnViewReport.setOnClickListener(v -> loadReportForSelectedMonth());
 
         // Load report for current month by default

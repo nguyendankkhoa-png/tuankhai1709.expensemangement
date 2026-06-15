@@ -77,7 +77,6 @@ public class DAOExpense {
         return list;
     }
 
-    // FIX: Added back the getRecentTransactions method for HomeFragment
     public List<objExpense> getRecentTransactions(int userId, int limit) {
         List<objExpense> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -102,12 +101,10 @@ public class DAOExpense {
         return list;
     }
 
-    // Thêm hàm này vào DAOExpense.java
     public List<objExpense> getExpensesByUser(int idUser, String type) {
         List<objExpense> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Query lấy tất cả giao dịch của User theo loại (không lọc theo năm)
         String query = "SELECT * FROM tbl_transaction WHERE idUser = ? AND type = ? ORDER BY date DESC";
         String[] selectionArgs = new String[]{String.valueOf(idUser), type};
 
@@ -207,9 +204,6 @@ public class DAOExpense {
         return reportList;
     }
 
-    /**
-     * Lấy danh sách các tháng/năm có giao dịch
-     */
     public List<String> getAvailableMonths(int idUser) {
         List<String> monthsList = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -292,25 +286,7 @@ public class DAOExpense {
         return list;
     }
 
-    public List<String> getCategories(String type) {
-        List<String> categories = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        String query = "SELECT DISTINCT category FROM tbl_transaction WHERE type = ? ORDER BY category ASC";
-        Cursor cursor = db.rawQuery(query, new String[]{type});
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                String category = cursor.getString(0);
-                if (category != null && !category.isEmpty()) {
-                    categories.add(category);
-                }
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        return categories;
-    }
-
+    // Method use for filter in expense, income fragment
     public List<String> getCategoriesByUser(int idUser, String type) {
         List<String> categories = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -333,16 +309,13 @@ public class DAOExpense {
 
     public double getTotalIncomeByMonth(int idUser, int month, int year) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        // Tạo chuỗi lọc ngày: "2025-12-%"
+        // Get total income for reported month and year
         String monthStr = (month < 10) ? "0" + month : String.valueOf(month);
         String searchPattern = year + "-" + monthStr + "-%";
 
-        // KHÔI PHỤC LẠI: Lọc theo idUser và dùng LIKE cho ngày tháng
         String query = "SELECT COALESCE(SUM(amount), 0) FROM tbl_transaction " +
                 "WHERE idUser = ? AND type = 'Income' AND date LIKE ?";
 
-        // Thêm lại String.valueOf(idUser) vào mảng tham số
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idUser), searchPattern});
 
         double total = 0;
@@ -357,15 +330,13 @@ public class DAOExpense {
 
     public double getTotalExpenseByMonth(int idUser, int month, int year) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-
+        // Get total expense for reported month and year
         String monthStr = (month < 10) ? "0" + month : String.valueOf(month);
         String searchPattern = year + "-" + monthStr + "-%";
 
-        // KHÔI PHỤC LẠI: Lọc theo idUser
         String query = "SELECT COALESCE(SUM(amount), 0) FROM tbl_transaction " +
                 "WHERE idUser = ? AND type = 'Expense' AND date LIKE ?";
 
-        // Thêm lại String.valueOf(idUser)
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idUser), searchPattern});
 
         double total = 0;

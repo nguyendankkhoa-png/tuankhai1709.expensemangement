@@ -54,7 +54,7 @@ public class AddTransactionActivity extends AppCompatActivity {
         Button btnAdd = dialog.findViewById(R.id.btnAddTransaction);
 
         List<String> expenseList = Arrays.asList("Food & Drinks", "Gasoline & Transportation", "Entertainment", "Groceries", "Monthly utility bills");
-        List<String> incomeList = Arrays.asList("Salary", "Bonus", "Interest");
+        List<String> incomeList = Arrays.asList("Salary", "Bonus", "Profit");
 
         ArrayAdapter<String> expenseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, expenseList);
         expenseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -72,7 +72,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             }
         });
 
-        // Set up DatePicker for Date field
+        // Set up DatePicker
         if (edDate != null) {
             edDate.setOnClickListener(v -> showDatePickerDialog(edDate));
         }

@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity
         int currentMonth = calendar.get(Calendar.MONTH) + 1;
         int currentYear = calendar.get(Calendar.YEAR);
 
+        // Add a recurring expense for that month base on the day of month
         for (objFixedExpense fixed : fixedExpenses) {
             if (currentDay >= fixed.getDayOfMonth()) {
                 if (fixed.getLastAddedYear() < currentYear || (fixed.getLastAddedYear() == currentYear && fixed.getLastAddedMonth() < currentMonth)) {
@@ -188,8 +189,10 @@ public class MainActivity extends AppCompatActivity
             if (shouldShowAlertIcon != hasAlerts) {
                 shouldShowAlertIcon = hasAlerts;
                 invalidateOptionsMenu();
+                if (hasAlerts) {
+                    showBudgetAlertDialog();
+                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -265,7 +268,7 @@ public class MainActivity extends AppCompatActivity
             int percentage = (int) alert.get("percentage");
             alertMessage.append("").append(category).append("\n");
                 alertMessage.append("Budget: $").append(String.format("%.1f", budgetAmount)).append("");
-            alertMessage.append("Spent: $").append(String.format("%.1f", spentAmount)).append(" (").append(percentage).append("%) \n\n");
+            alertMessage.append("\nSpent: $").append(String.format("%.1f", spentAmount)).append(" (").append(percentage).append("%) \n\n");
         }
 
         FunctionRecycle.showAlert(this, "🚨 OVER BUDGET!!!", alertMessage.toString().trim());

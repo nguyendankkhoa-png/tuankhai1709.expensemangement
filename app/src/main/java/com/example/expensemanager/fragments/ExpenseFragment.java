@@ -177,6 +177,7 @@ public class ExpenseFragment extends Fragment {
         RecyclerView rvRecurring = dialog.findViewById(R.id.rv_recurring_expenses);
         Button btnClose = dialog.findViewById(R.id.btn_close_recurring_dialog);
 
+        // Show recurring expenses by getAllFixedExpenses method
         rvRecurring.setLayoutManager(new LinearLayoutManager(getContext()));
         List<objFixedExpense> recurringList = daoFixedExpense.getAllFixedExpenses(currentIdUser);
 
@@ -215,6 +216,7 @@ public class ExpenseFragment extends Fragment {
         Button btnCancel = dialog.findViewById(R.id.btn_recurring_cancel);
         Button btnSave = dialog.findViewById(R.id.btn_recurring_save);
 
+        // Categories for recurring expenses
         List<String> categories = Arrays.asList("Food & Drinks", "Gasoline & Transportation",
                 "Entertainment", "Groceries", "Monthly utility bills");
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(),
